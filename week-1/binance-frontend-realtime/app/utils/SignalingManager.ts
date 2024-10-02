@@ -33,6 +33,7 @@ export class SignalingManager {
             this.bufferedMessages = [];
         }
         this.ws.onmessage = (event) => {
+            // console.log(event)
             const message = JSON.parse(event.data);
             const type = message.data.e;
             if (this.callbacks[type]) {
@@ -96,3 +97,4 @@ export class SignalingManager {
         }
     }
 }
+

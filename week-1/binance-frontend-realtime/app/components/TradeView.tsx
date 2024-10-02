@@ -17,10 +17,12 @@ export function TradeView({ market }: { market: string }) {
           Math.floor((new Date().getTime() - 1000 * 60 * 60 * 24 * 7) / 1000),
           Math.floor(new Date().getTime() / 1000)
         );
+        // console.log(klineData, "klineData")
       } catch (e) {}
 
       if (chartRef) {
         if (chartManagerRef.current) {
+          // console.log("chartManagerRef", chartManagerRef)
           chartManagerRef.current.destroy();
         }
 

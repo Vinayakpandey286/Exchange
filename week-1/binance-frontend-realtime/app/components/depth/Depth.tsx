@@ -12,6 +12,14 @@ export function Depth({ market }: {market: string}) {
     const [price, setPrice] = useState<string>();
 
     useEffect(() => {
+        getDepth(market).then(d => {    
+            setBids(d.bids.reverse());
+            setAsks(d.asks);
+        });
+
+        getTicker(market).then(t => setPrice(t.lastPrice));
+        getTrades(market).then(t => setPrice(t[0].price));
+
         SignalingManager.getInstance().registerCallback("depth", (data: any) => {
             
             setBids((originalBids) => {
@@ -45,14 +53,7 @@ export function Depth({ market }: {market: string}) {
         
         SignalingManager.getInstance().sendMessage({"method":"SUBSCRIBE","params":[`depth.${market}`]});
 
-        getDepth(market).then(d => {    
-            setBids(d.bids.reverse());
-            setAsks(d.asks);
-        });
-
-        getTicker(market).then(t => setPrice(t.lastPrice));
-        getTrades(market).then(t => setPrice(t[0].price));
-        // getKlines(market, "1h", 1640099200, 1640100800).then(t => setPrice(t[0].close));
+        
         return () => {
             SignalingManager.getInstance().sendMessage({"method":"UNSUBSCRIBE","params":[`depth.200ms.${market}`]});
             SignalingManager.getInstance().deRegisterCallback("depth", `DEPTH-${market}`);
@@ -70,7 +71,7 @@ export function Depth({ market }: {market: string}) {
 function TableHeader() {
     return <div className="flex justify-between text-xs">
     <div className="text-white">Price</div>
-    <div className="text-slate-500">Size</div>
-    <div className="text-slate-500">Total</div>
+    <div className="text-white">Size</div>
+    <div className="text-white">Total</div>
 </div>
 }
