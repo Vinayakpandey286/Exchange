@@ -2,7 +2,7 @@
 export const AskTable = ({ asks }: { asks: [string, string][] }) => {
     let currentTotal = 0;
     const relevantAsks = asks.slice(0, 15);
-    relevantAsks.reverse();
+    // relevantAsks.reverse();
     const asksWithTotal: [string, string, number][] = relevantAsks.map(([price, quantity]) => [price, quantity, currentTotal += Number(quantity)]);
     const maxTotal = relevantAsks.reduce((acc, [_, quantity]) => acc + Number(quantity), 0);
     asksWithTotal.reverse();
@@ -32,7 +32,7 @@ function Ask({price, quantity, total, maxTotal}: {price: string, quantity: strin
         transition: "width 0.3s ease-in-out",
         }}
     ></div>
-    <div className="flex justify-between text-xs w-full">
+    <div className="flex justify-between text-xs w-full  text-red-600">
         <div>
             {price}
         </div>
