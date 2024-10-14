@@ -370,7 +370,7 @@ export class Engine {
             this.balances.get(userId)[quoteAsset].locked = this.balances.get(userId)?.[quoteAsset].locked + (Number(quantity) * Number(price));
         } else {
             if ((this.balances.get(userId)?.[baseAsset]?.available || 0) < Number(quantity)) {
-                throw new Error("Insufficient funds");
+                throw new Error(`Insufficient ${baseAsset}`);
             }
             //@ts-ignore
             this.balances.get(userId)[baseAsset].available = this.balances.get(userId)?.[baseAsset].available - (Number(quantity));

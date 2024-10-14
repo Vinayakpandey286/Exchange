@@ -36,7 +36,7 @@ export class RedisManager {
         this.client.connect();
     }
 
-    public static getInstance() {
+    public static getInstance() { 
         if (!this.instance)  {
             this.instance = new RedisManager();
         }
